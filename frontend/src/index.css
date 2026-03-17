@@ -1,0 +1,202 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ===== Global Reset (Safe for Layout) ===== */
+html,
+body,
+#root {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100%;
+  scroll-behavior: smooth;
+}
+
+/* Prevent horizontal scroll */
+body {
+  overflow-x: hidden;
+}
+
+/* Optional Base Theme */
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  background-color: #f9fafb; /* light neutral background */
+}
+
+/* Remove browser-provided password reveal/clear icons so only our eye toggle appears */
+.password-input::-ms-reveal,
+.password-input::-ms-clear {
+  display: none;
+}
+.password-input::-webkit-credentials-auto-fill-button,
+.password-input::-webkit-textfield-decoration-container,
+.password-input::-webkit-clear-button {
+  visibility: hidden;
+  display: none !important;
+}
+.password-input {
+  appearance: none;
+}
+
+/* Toast "Dynamic Island" */
+.toast-island {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.75rem 1rem;
+  background: rgba(17, 24, 39, 0.92); /* default info */
+  color: #fff;
+  border-radius: 9999px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.18);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transform-origin: top center;
+  animation: toastIslandIn 180ms ease-out;
+}
+
+.toast-island.success {
+  background: rgba(22, 163, 74, 0.94); /* green-600 */
+}
+
+.toast-island.error {
+  background: rgba(220, 38, 38, 0.94); /* red-600 */
+}
+
+.toast-island.info {
+  background: rgba(17, 24, 39, 0.92);
+}
+
+.toast-text {
+  font-size: 0.875rem;
+  line-height: 1.15rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.toast-dot {
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 9999px;
+  background: #60a5fa;
+  flex: 0 0 auto;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.06);
+}
+.toast-dot.success { background: #dcfce7; } /* light dot on green */
+.toast-dot.error { background: #fee2e2; }   /* light dot on red */
+.toast-dot.info { background: #60a5fa; }
+
+@keyframes toastIslandIn {
+  from { transform: translateY(-10px) scale(0.96); opacity: 0; }
+  to { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+.user-dashboard-fade-in {
+  animation: dashboardFadeIn 480ms ease-out both;
+}
+
+.user-dashboard-slide-up {
+  animation: dashboardSlideUp 500ms ease-out both;
+}
+
+.dashboard-tab-indicator {
+  position: absolute;
+  inset: 0;
+  width: calc(50% - 2px);
+  margin: 1px;
+  border-radius: 0.65rem;
+  background: linear-gradient(135deg, #16a34a, #22c55e);
+  transition: transform 300ms ease;
+}
+
+.dashboard-ripple-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.dashboard-ripple-btn::after {
+  content: "";
+  position: absolute;
+  inset: -120%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.28) 0%, transparent 52%);
+  transform: scale(0);
+  transition: transform 450ms ease;
+}
+
+.dashboard-ripple-btn:active::after {
+  transform: scale(1);
+}
+
+.dashboard-shake {
+  animation: dashboardShake 380ms ease-in-out;
+}
+
+@keyframes dashboardFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes dashboardSlideUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes dashboardShake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-6px); }
+  50% { transform: translateX(6px); }
+  75% { transform: translateX(-4px); }
+  100% { transform: translateX(0); }
+}
+
+.loan-dashboard-fade-in {
+  animation: loanDashboardFadeIn 450ms ease both;
+}
+
+.loan-dashboard-slide-up {
+  animation: loanDashboardSlideUp 520ms ease both;
+}
+
+.loan-filter-input:focus {
+  border-color: #22c55e;
+  box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.18);
+}
+
+.loan-view-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.loan-row-entrance {
+  opacity: 0;
+  transform: translateY(10px);
+  animation: loanRowStaggerIn 420ms ease forwards;
+}
+
+@keyframes loanDashboardFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes loanDashboardSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes loanRowStaggerIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

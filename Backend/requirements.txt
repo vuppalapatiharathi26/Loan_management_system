@@ -1,0 +1,40 @@
+# =========================
+# Core Framework
+# =========================
+fastapi==0.110.0
+uvicorn==0.27.1
+
+# =========================
+# Data Validation & Settings
+# =========================
+pydantic==2.6.1
+pydantic-settings==2.2.1
+python-dotenv==1.0.1
+
+# =========================
+# Database (MongoDB)
+# =========================
+motor==3.3.2
+pymongo==4.6.1
+
+# =========================
+# Authentication & Security
+# =========================
+python-jose==3.3.0
+bcrypt==4.1.2
+passlib[bcrypt]==1.7.4
+
+# =========================
+# Payments
+# =========================
+stripe==14.3.0
+reportlab==4.2.2
+
+# =========================
+# Testing
+# =========================
+pytest==8.0.0
+pytest-asyncio==0.23.3
+
+python-multipart==0.0.5
+pypdf==5.1.0

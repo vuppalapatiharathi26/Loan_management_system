@@ -1,0 +1,99 @@
+from datetime import datetime
+from typing import Optional
+from bson import ObjectId
+
+from app.db.mongodb import db
+
+
+class UserRepository:
+    def __init__(self):
+        self.collection = db.users
+
+    async def find_by_phone(self, phone: str):
+        return await self.collection.find_one({"phone": phone})
+
+    async def create(self, user_data: dict):
+        result = await self.collection.insert_one(user_data)
+        return result.inserted_id
+
+    async def find_by_id(self, user_id: str):
+        if not ObjectId.is_valid(user_id):
+            return None
+        return await self.collection.find_one(
+            {"_id": ObjectId(user_id)}
+        )
+
+    async def update_kyc(self, user_id: str, update_data: dict):
+        return await self.collection.update_one(
+            {"_id": ObjectId(user_id)},
+            {"$set": update_data}
+        )
+
+    async def update_approval_status(
+        self,
+        user_id: str,
+        approval_status,
+        approved_by_manager_id: str,
+        remarks: str | None = None
+    ):
+        return await self.collection.update_one(
+            {"_id": ObjectId(user_id)},
+            {
+                "$set": {
+                    "approval_status": approval_status,
+                    "approved_by_manager_id": ObjectId(approved_by_manager_id),
+                    "updated_at": datetime.utcnow()
+                }
+            }
+        )
+
+    # =====================================================
+    # LIST USERS (UPDATED – supports deletion_requested)
+    # =====================================================
+    async def list_users(
+        self,
+        approval_status: Optional[str] = None,
+        kyc_status: Optional[str] = None,
+        deletion_requested: Optional[bool] = None
+    ):
+        query = {}
+
+        if approval_status:
+            query["approval_status"] = approval_status
+
+        if kyc_status:
+            query["kyc_status"] = kyc_status
+
+        # 🔑 THIS IS THE FIX
+        if deletion_requested is not None:
+            query["deletion_requested"] = deletion_requested
+
+        cursor = self.collection.find(query).sort("created_at", -1)
+        return cursor
+
+    async def soft_delete_user(self, user_id: str, deleted_by: str):
+        return await self.collection.update_one(
+            {"_id": ObjectId(user_id)},
+            {
+                "$set": {
+                    "approval_status": "DELETED",
+                    "is_active": False,
+                    "deleted_by": ObjectId(deleted_by),
+                    "deleted_at": datetime.utcnow()
+                }
+            }
+        )
+
+    async def clear_deletion_request(self, user_id: str):
+        await self.collection.update_one(
+            {"_id": ObjectId(user_id)},
+            {
+                "$unset": {
+                    "deletion_requested": "",
+                    "deletion_requested_by": ""
+                },
+                "$set": {
+                    "updated_at": datetime.utcnow()
+                }
+            }
+        )
