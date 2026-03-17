@@ -298,28 +298,6 @@ PYTHON_LMS_3_repo/
 ```
 
 ---
-## Screenshots
-### HomePage
-<img width="800" height="426" alt="image" src="https://github.com/user-attachments/assets/8349c6bf-8b47-4817-88b6-94f7dfc45e1b" />
-
-### Login
-<img width="721" height="781" alt="image" src="https://github.com/user-attachments/assets/be0c3186-ad1a-4467-b709-1532f57e0711" />
-
-### User Registration
-<img width="730" height="991" alt="image" src="https://github.com/user-attachments/assets/9f235d9b-b856-40ef-9c90-43c1c3904170" />
-
-### User Dashboard
-<img width="1890" height="1006" alt="image" src="https://github.com/user-attachments/assets/464c3e01-831d-4be9-9964-80ed4d83a01e" />
-
-### Bank Manager Dashboard
-<img width="800" height="425" alt="image" src="https://github.com/user-attachments/assets/00ae0090-0365-4422-8111-b229788a9d68" />
-
-### Loan Manager Dashboard
-<img width="800" height="426" alt="image" src="https://github.com/user-attachments/assets/7f3d81c4-76b1-4f33-9a59-50eaa6a7d514" />
-
-### Bank Admin Dashboard
-<img width="800" height="421" alt="image" src="https://github.com/user-attachments/assets/cfeac8a6-5e09-49e2-99d6-ab86b3f36c5f" />
-
 
 ## 🚀 Installation
 
